@@ -1,0 +1,132 @@
+%% Creator: Inkscape inkscape 0.91, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'deepfill-architecture.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{494.99710203bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.66294818)%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{deepfill-architecture.pdf}}%
+    \put(0.89897922,0.24940238){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Coarse Result}}}%
+    \put(0.53851209,0.49163345){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Coarse}}}%
+    \put(0.58153998,0.49163345){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Network (Stage I)}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{deepfill-architecture.pdf}}%
+    \put(0.124028,0.64143423){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{:}}}%
+    \put(0.13119932,0.64177017){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Gated}}}%
+    \put(0.16944632,0.64143423){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Convolution}}}%
+    \put(0.29870487,0.64143423){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{: Dilated}}}%
+    \put(0.3504977,0.64177017){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Gated}}}%
+    \put(0.3887447,0.64143423){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Convolution}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{deepfill-architecture.pdf}}%
+    \put(0.0318144,0.44382468){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{RGB Channels}}}%
+    \put(0.1358778,0.44382468){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Mask Channel}}}%
+    \put(0.24489675,0.44382468){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Sketch Channel}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{deepfill-architecture.pdf}}%
+    \put(0.39603339,0.23346613){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Two Branch Refinement}}}%
+    \put(0.53786604,0.23346613){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Network with}}}%
+    \put(0.41993777,0.21673306){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Contextual Attention (Stage II)}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{deepfill-architecture.pdf}}%
+    \put(0.52757951,0.64063742){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{:}}}%
+    \put(0.53475082,0.64063742){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Contextual Attention}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{deepfill-architecture.pdf}}%
+    \put(0.06771247,0.25099601){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Inpainting Result}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{deepfill-architecture.pdf}}%
+    \put(0.42821514,0.32988047){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Concat}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{deepfill-architecture.pdf}}%
+    \put(0.21385014,0.01274901){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Fully Convolutional Spectral}}}%
+    \put(0.37321267,0.01274901){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{-}}}%
+    \put(0.37799355,0.01274901){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Normalized Markovian Discriminator}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{deepfill-architecture.pdf}}%
+    \put(0.24147588,0.19203187){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{64}}}%
+    \put(0.29980989,0.17768924){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{128}}}%
+    \put(0.36611522,0.15776892){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{256}}}%
+    \put(0.43396852,0.14741036){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{256}}}%
+    \put(0.50244469,0.1434263){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{256}}}%
+    \put(0.56722165,0.13864542){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{256}}}%
+    \put(0.21286672,0.10358566){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{H}}}%
+    \put(0.26640966,0.11155379){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{퐻}}}%
+    \put(0.26800328,0.09083666){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{2}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{deepfill-architecture.pdf}}%
+    \put(0.33368025,0.1123506){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{퐻}}}%
+    \put(0.33527387,0.09163347){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{deepfill-architecture.pdf}}%
+    \put(0.409189,0.1123506){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{퐻}}}%
+    \put(0.41078263,0.09163347){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{8}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{deepfill-architecture.pdf}}%
+    \put(0.48028708,0.1123506){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{퐻}}}%
+    \put(0.47789664,0.09163347){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{16}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{deepfill-architecture.pdf}}%
+    \put(0.54855751,0.11155379){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{퐻}}}%
+    \put(0.54616707,0.09083666){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{32}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{deepfill-architecture.pdf}}%
+    \put(0.23909261,0.03187252){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{W}}}%
+    \put(0.30671172,0.05338646){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{푊}}}%
+    \put(0.30989898,0.03266933){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{2}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{deepfill-architecture.pdf}}%
+    \put(0.39140877,0.07011953){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{푊}}}%
+    \put(0.39459602,0.0494024){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{deepfill-architecture.pdf}}%
+    \put(0.45565513,0.07410359){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{푊}}}%
+    \put(0.45884238,0.05338646){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{8}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{deepfill-architecture.pdf}}%
+    \put(0.52537026,0.07808765){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{푊}}}%
+    \put(0.52457345,0.05737052){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{16}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{deepfill-architecture.pdf}}%
+    \put(0.58777687,0.08207172){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{푊}}}%
+    \put(0.58698006,0.06135459){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{32}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{deepfill-architecture.pdf}}%
+    \put(0.78497661,0.10278885){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Real or Fake}}}%
+    \put(0.82059517,0.1250996){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Real or Fake}}}%
+    \put(0.80553302,0.07968128){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Real or Fake}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{deepfill-architecture.pdf}}%
+    \put(0.65799694,0.01274901){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{GAN Loss on Each}}}%
+    \put(0.76397302,0.01274901){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Neuron}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{deepfill-architecture.pdf}}%
+    \put(0.72064028,0.64143423){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{:}}}%
+    \put(0.72781159,0.64143423){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Convolution}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=22]{deepfill-architecture.pdf}}%
+  \end{picture}%
+\endgroup%

@@ -1,0 +1,41 @@
+\subsection{SLAM dependent targetted exploration}
+
+Since Simultaneous Localization and Mapping (SLAM) is a well-studied problem,
+we assume a SLAM algorithm $\AlgSLAM: \LidarSp \times \PoseSp \times
+\MapSp \rightarrow \MapSp \times \PoseSp$ available that gives updates the map estimate
+$\hmap$ and pose estimate $\hpose$ with each lidar-based observation $\lidar_t
+\in \LidarSp$, $\hmap_{t+1}, \hpose_{t+1} = \AlgSLAM(\lidar_t, \hpose_t, \hmap_t)$.
+Then the problem of estimating $\policy$ simplifies to two steps.
+This simplifies the problem to estimating the target location and taking steps
+that minimize the entropy in target location distribution.
+First, we estimate the target location $\htgt_{i,t}$ from the observations and
+then we take action to minimize the cost.
+
+%
+\begin{equation}
+\begin{aligned}
+\policy^* = \arg \min_{\policy} &\sum_{t=1}^T
+ \lambda \cost_t(\pose_t, \ctrl_t, \map) + (1-\lambda) \sum_{i=1}^N\ind_{\act_{i,t}}
+  \\
+  \text{s.t } \quad
+  \pose_{t+1} &= \dyn(\pose_t, \ctrl_t, \map)
+  \\
+  \rssi_{t} &= \sum_{i=1}^N \ind_{\act_{i,t}} \RSSIModel(\pose_t, \tgt_i, \map)
+  \\
+  \lidar_{t} &= \LidarModel(\pose_t, \map)
+  \\
+  \img_{t} &= \ImgModel(\pose_t, \{\tgt_i\}_i^N, \map)
+  \\
+  \act_{i,t+1} &= \lor_{k=1}^t \AlgObjDet_i(\img_k)
+  \\
+  \hmap_{t+1}, \hpose_t &= \AlgSLAM(\lidar_t, \hpose_t, \hmap_t)
+  \\
+  \htgt_{i,t+1} &= \AlgTgt(\rssi_{1:t}, \hpose_{1:t}, \act_{1:N,t})
+  \\
+  \ctrl_t &= \policy(\htgt_{1:N,t}, \act_{1:N,t}, \hpose_t, \hmap_t),
+\end{aligned}%
+\end{equation}
+% 
+In this work, we propose methods for to estimate target locations $\AlgTgt$ for
+certain classes of $\RSSIModel$ and to take optimal actions $\policy^*$ that
+minimize the required cost.

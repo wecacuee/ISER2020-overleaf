@@ -1,0 +1,71 @@
+\section{Background}
+
+\subsection{Stochastic source seeking}
+Stochastic source seeking is the problem of searching  a stochastic source
+$\tgt_i \in \TgtSp$ of a signal in an unknown environment.
+The problem of stochastic source seeking is typically addressed either using
+model-based or model-free methods.
+Model-based methods assume that the signal model
+$\RSSIModel: \TgtSp \times \PoseSp \times \MapSp \rightarrow \RSSISp$
+is given, such that noisy signal $\rssi_{i,t}$ at time $t$ with robot pose
+$\pose_t \in \PoseSp$ , source position $\tgt_i \in \TgtSp$ and map $\map \in
+\MapSp$ is given by
+%
+\begin{align}
+\rssi_{i,t} &= \RSSIModel(\tgt_i, \pose_t, \map) + \rnoise_t,
+\end{align}%
+% 
+where $\rnoise_t \sim  \N(0, \Sigma)$ is zero mean Gaussian noise.
+
+On the other model-free methods assume that $\RSSIModel$ is unknown and usually
+follow greedy signal-gradient based approach.
+
+\begin{problem}[Model-based source seeking]
+Consider $N$ targets, whose locations $\mathbf{\tgt} := (\tgt_i)_{i=1}^N$ are unknown. We are given
+a robot with pose $\pose_t$ that moves according to a given dynamics model
+$\pose_{t+1} = \dyn(\pose_t, \ctrl_t, \map) + \pnoise_t$. We want to find the
+policy $\policy$ that maximizes the information gain about the target locations,
+%
+\begin{equation}\begin{split}
+    \policy^* = \arg&\max_{\policy} \MI( \mathbf{\tgt}_{1:N} ; \rssi_{1:t} )
+  \\
+  \text{s.t } \quad
+  \pose_{t+1} &= \dyn(\pose_t, \ctrl_t, \map) + \pnoise_t
+  \\
+  \rssi_{t} &= \sum_{i=1}^N \RSSIModel(\pose_t, \tgt_i, \map) + \rnoise_{i,t}
+  \\
+  \ctrl_t &= \policy(\rssi_{1:t})
+\end{split}\end{equation}
+%
+\end{problem}
+
+
+\subsection{Information gathering}
+
+Information gathering is the problem of exploring an unknown environment with
+the objective of collecting maximum information about the environment map. Given a robot with pose $\pose_t$ at time $t$ is present in an unknown
+environment $\map$ and is observes lidar scans $\lidar_t = \LidarModel(\pose_t,
+\map) + \lnoise_t$ according to a known observation model $\LidarModel$. Also
+assume that the dynamics of the robot are known.
+\begin{problem}[Information Gathering]
+The Information Gathering
+problem is the problem of seeking to maximizing the information about the unknown
+map $\map$ using the observations $\lidar_{1:t}$,
+%
+\begin{equation}\begin{split}
+      \policy^* = \arg&\min_{\policy} \En(\map \mid \lidar_{1:t}, \pose_{1:t})
+      \\
+      \text{s.t } \quad
+  \pose_{t+1} &= \dyn(\pose_t, \ctrl_t, \map) + \pnoise_t
+  \\
+  \lidar_{t} &= \LidarModel(\pose_t, \map) + \lnoise_t
+  \\
+  \ctrl_t &= \policy(\lidar_{1:t}),
+\end{split}\end{equation}
+%
+where $\En(\map \mid \lidar_{1:t}, \pose_{1:t})$ is an information measure over
+the map $\map$. Typically it is the Shanon entropy of the map random variable.
+\end{problem}
+
+In this work, we combine the two problems and define the problem of stochastic
+source seeking in partially observable environment.

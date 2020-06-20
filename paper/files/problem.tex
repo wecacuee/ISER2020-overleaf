@@ -1,0 +1,70 @@
+\section{Problem: Targetted exploration}
+
+Consider $N$ signal sources $\tgt_i \in \TgtSp$ in the environment $\map \in
+\MapSp$.
+We assume that the number of signal sources is known but the map of the
+environment is unknown.
+We have a robot that captures three kinds of observations. One is
+ the signal, which is unaffected by the map.
+ The other observations are vision and lidar observations.
+We assume that we how the signal source looks like, so that we can
+detect it using the vision sensor. We further assume that once detected, it gets
+diffused automatically.
+The Lidar observations help us detect obstacles and map occupancy.
+
+We assume signal-generation model $\RSSIModel$ for source is known.
+We further assume that the signal sources can be in two states, active or inactive.
+Let $\act_{i,t} = 1$ denote that the $i$th source is active.
+Hence, the signal sensed by the robot is given by,
+%
+\begin{align}
+\rssi_t = \sum_{i=1}^N\act_{i,t} \RSSIModel(\tgt_i, \pose_t, \map),
+\end{align}%
+% 
+where $\act_{i,t} \in \{0, 1\}$ denotes whether the target $i$ is
+active.
+
+We also assume an object-detection algorithm on the image sensor,
+$\AlgObjDet_i: \ImgSp \to \{0, 1\}$.
+When the robot has detected the target object $\AlgObjDet_i(\img_t) =
+1$, then we assume that targets object $i$ gets diffused automatically
+and it is no longer active $\act_{i,t+1} = \max\{ \AlgObjDet_i(\img_k), \act_{i,t}\}$.
+With slide abuse of notation, we include the image observation model as a part
+of object detection function and write the update model of activeness of target
+object as $\act_{i,t+1} = \max\{ \AlgObjDet(\pose_k, \tgt_i, \map), \act_{i,t}\}$.
+Also assume a cost function for taking each action at each state is $\cost:
+\PoseSp \times \CtrlSp \times \MapSp \to \R_+$.
+Under these conditions, we want to design a policy or control function $\policy:
+\RSSISp^t \times \LidarSp^t \times \ImgSp^t  \to \CtrlSp$.
+takes an optimal action $\ctrl_t = \policy(\rssi_{1:t}, \lidar_{1:t}, \img_{1:t})$ at
+each time step leading us to the radio-active object, where $\htgt_{i,t}$ is the
+current estimate of the location of the target.
+
+%
+\begin{equation}
+\begin{aligned}
+\policy^* = \arg &\min_{\policy} 
+\lambda \En(\map; \lidar_{1:t})
+- (1-\lambda) \MI(\tgt_{1:N}; \rssi_{1:t}| \ctrl_{1:t}) 
+  \\
+  \text{s.t } \quad
+  \pose_{t+1} &= \dyn(\pose_t, \ctrl_t, \map) + \pnoise_t
+  \\
+  \rssi_{t} &= \sum_{i=1}^N \act_{i,t} \RSSIModel(\pose_t, \tgt_i, \map) + \rnoise_{i,t}
+  \\
+  \lidar_{t} &= \LidarModel(\pose_t, \map) + \lnoise_t
+  \\
+  \act_{i,t+1} &=  \max\{\AlgObjDet(\pose_t, \tgt_i, \map), \act_{i,t} \}
+  \\
+  \ctrl_t &= \policy(\rssi_{1:t}, \lidar_{1:t}, \act_{1:N,t}),
+  \\
+  t &< T
+\end{aligned}%
+\end{equation}
+% 
+where $T$ is the maximum time allowed for exploration, $\rnoise$, $\pnoise$,
+$\lnoise$ are Gaussian noise with zero mean and covariances $\rCov$, $\pCov$ and
+$\lCov$ respectively.
+And $\lambda$ is the
+constant that weighs the map exploration objective against the target
+exploration objective.

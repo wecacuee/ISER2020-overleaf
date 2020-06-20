@@ -1,0 +1,4 @@
+bibtex2html
+poppler-utils
+texlive-latex-base
+texlive-generic-extra
