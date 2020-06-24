@@ -1,8 +1,8 @@
 PDFLATEX?=xelatex
 OO=out
-all: ICRA2019-multirobotVoxelExp.pdf
+all: ISER2020-semantic-exploration.pdf
 
-ICRA2019-multirobotVoxelExp.pdf: $(OO)/main.pdf $(OO)/type1font-check-passed.flag
+ISER2020-semantic-exploration.pdf: $(OO)/main.pdf $(OO)/type1font-check-passed.flag
 	cp $< $@
 
 $(OO)/type1font-check-passed.flag: $(OO)/main.pdf
@@ -18,5 +18,14 @@ sources.bib: $(OO)/main.aux $(wildcard $(HOME)/wrk/group-bib/shared.bib)
 
 media/%:
 	$(MAKE) -C media/ $*
+
+spmpsci.bst svproc.cls: /tmp/ProcSci_TeX.zip
+	unzip /tmp/ProcSci_TeX.zip styles/svproc.cls styles/bibtex/spmpsci.bst
+	mv styles/svproc.cls .
+	mv styles/bibtex/spmpsci.bst .
+	rm -rf styles
+
+/tmp/ProcSci_TeX.zip:
+	wget ftp://ftp.springernature.com/cs-proceeding/svproc/templates/ProcSci_TeX.zip -O /tmp/ProcSci_TeX.zip
 
 include pdflatex.mk

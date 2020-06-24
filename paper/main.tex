@@ -1,5 +1,20 @@
-\documentclass[sigconf]{aamas} % Comment this line out if you need a4paper
+%%%%%%%%%%%%%%%%%%%% author.tex %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% sample root file for your "contribution" to a proceedings volume
+%
+% Use this file as a template for your own input.
+%
+%%%%%%%%%%%%%%%% Springer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+\documentclass{svproc}
+%
+% RECOMMENDED %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+
+% to typeset URLs, URIs, and DOIs
+\usepackage{url}
+\def\UrlFont{\rmfamily}
 
 \usepackage{amsmath, amssymb , graphicx}
 \usepackage{multirow}
@@ -44,145 +59,57 @@
 \usepackage [autostyle, english = american]{csquotes}
 \MakeOuterQuote{"}\captionsetup{compatibility=false}
 
-%% do not change the following lines
-\usepackage{flushend}
-\setcopyright{ifaamas}  % do not change this line!
-\acmDOI{doi}  % do not change this line!
-\acmISBN{}  % do not change this line!
-\acmConference[AAMAS'20]{Proc.\@ of the 19th International Conference on Autonomous Agents and Multiagent Systems (AAMAS 2020), B.~An, N.~Yorke-Smith, A.~El~Fallah~Seghrouchni, G.~Sukthankar (eds.)}{May 2020}{Auckland, New Zealand}  % do not change this line!
-\acmYear{2020}  % do not change this line!
-\copyrightyear{2020}  % do not change this line!
-\acmPrice{}  % do not change this line!
-
 \input{preamble.tex}
 \let\svfootnoterule\footnoterule
 \renewcommand\footnoterule{\vfill\svfootnoterule}
 
-%IEEE
-%\usepackage[redeflists]{IEEEtrantools}
-
 \title{
-  Source seeking with map prediction in partially observable environments
+  Source seeking using semantic map prediction
 }
+\titlerunning{Semantic source seeking}
 
-%\author{Paper 1842}  % put your paper number here!
-
-\author{Carlos Nieto-Grandas$^\dagger$}
-\author{Vikas Dhiman}%$^\dagger$}
-\author{Henrik I. Christensen}% <-this % stops a space
-\affiliation{%
-  \institution{University of California, San Diego}
-  %\streetaddress{9500 Gilman Drive}
-  \city{$^\dagger$US Army Research Laboratory}
-  %San Diego}
-  %\state{California}
-  \postcode{92121}}
-\email{cnietogr,vdhiman,hic@ucsd.edu}%
+\author{Vikas Dhiman\inst{1} \and
+Carlos Nieto-Grandas\inst{2} \and
+Henrik I. Christensen\inst{1}}% <-this % stops a space
+\authorrunning{Vikas Dhiman et al.}
+\institute{%
+  University of California, San Diego, San Diego  CA 92121, USA\\
+  \email{\{vdhiman,cnieto,hic\}@ucsd.edu}, \\ Home page:
+  \texttt{vikasdhiman.info}
+\and
+  US Army Research Laboratory}
 
 \begin{document} 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%abstract
-\begin{abstract}
-We focus on the problem of stochastic source seeking in partially observable
-environments.
-Robots being deployed in search and rescue scenarios often need to
-seek the source of a signal, like radio-active material, heat signature or gas leakages.
-However, this problem is accentuated in partially observable
-environments.
-One needs to know the map before planning an exploratory trajectory.
-We address this problem by formulating map-prediction as an image inpainting
-problem.
-Using the predicted map, we plan a trajectory that maximizes the information
-gain for the target locations.
-\end{abstract}
-\keywords{Active exploration; Robotics; partial observability}  % put your semicolon-separated keywords here!
+\mainmatter              % start of a contribution
 
 \maketitle
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% \begin{IEEEkeywords}
-% \textbf{Keywords: Semantic Scene Understanding, Mapping, Recognition.}
-% \end{IEEEkeywords}
+\section{Motivation}\label{sec:intro}
+\input{files/motivation}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%sections
+\section{Problem Statement}\label{sec:problem}
+\input{files/problem}
 
-\input{files/introduction.tex}
-%\input{files/relatedwork.tex}
+\section{Related Work}\label{sec:relatedwork}
+\input{files/relatedwork}
 
-\begin{figure*}
-\parbox[][][b]{0.22\linewidth}{%
-\centering \includegraphics[width=\linewidth]{./files/media/u-maze.pdf}\\(a)}
-\parbox[][][b]{0.27\linewidth}{%
-\centering \includegraphics[width=\linewidth]{./files/media/deepfill-architecture.pdf}\\(b)}
-\parbox[][][b]{0.24\linewidth}{%
-\centering \includegraphics[width=\linewidth]{paper/files/media/atk_exploration.png}\\(c)}
-\parbox[][][b]{0.24\linewidth}{%
-\centering \includegraphics[width=\linewidth]{paper/files/media/zigxbee.png}\\(d)}
-  \caption{
-  (a) U-maze. If the green robot greedily follows the radio signal from the
-  yellow target, then it is likely to get stuck in the local minima. Our
-  algorithm has dual objective of exploration and source seeking. When the gain
-  in source seeking is small then the robot reverts to environment exploration
-  and escapes local minima.
-  (b) DeepFill architecture. Image from \cite{yu2018DeepFill}
-  (c) Our multi-robot team of jackal robots exploring Atkinson Hall's first floor getting measurements from ZigXbees transmitters. 
-  (d) On the right a picture of the ZigXbee transmitter used on these experiments.}%
-  \label{fig:exp:expl_atk}%
-  \label{fig:deepfill}%
-  \label{fig:c-maze}
-\end{figure*}
-\input{files/background.tex}
-\input{files/problem.tex}
+\section{Technical Approach}
+\input{files/approach}
 
- %
-\begin{figure*}[h!]%
-  \def\frac{0.24}
-  \includegraphics[width=\frac\linewidth]{./files/media/department_diiga/00016_input.png}%
-  \includegraphics[width=\frac\linewidth]{./files/media/department_diiga/00016_mask.png}%
-  \includegraphics[width=\frac\linewidth]{./files/media/department_diiga/0016_output.png}%
-  \includegraphics[width=\frac\linewidth]{./files/media/department_diiga/00016_estimated.png}%
-  \\%
-  \includegraphics[width=\frac\linewidth]{./files/media/fr_campus_100p_10cm/00009_input.png}%
-  \includegraphics[width=\frac\linewidth]{./files/media/fr_campus_100p_10cm/00009_mask.png}%
-  \includegraphics[width=\frac\linewidth]{./files/media/fr_campus_100p_10cm/00009_output.png}%
-  \includegraphics[width=\frac\linewidth]{./files/media/fr_campus_100p_10cm/00009_estimated.png}%
-  \caption{Map prediction using DeepFill~\cite{yu2018DeepFill}. Given a map at
-any timestep $\map_{t}$, we want to predict the map at $\map_{t+1}$. We create a
-mask by morphological operations on the known area in $\map_t$. The resultant
-mask is used to mark the regions that need to be predicted. The left column
-shows the input map, the middle column shows the mask and the last column shows
-the predicted map.}%
-  \label{fig:map-prediction}%
-\end{figure*}%
+\section{Results}
+\input{files/results}
 
-\begin{figure*}[h!]
- \centering
- \includegraphics[width=.48\linewidth]{paper/files/media/multirobot_exp.png}%
-  \includegraphics[width=.48\linewidth]{paper/files/media/multirobot_exp2.png}
- \caption{ Our multi-robot team exploring two different buildings on UC San Diego.. In color 
- graphics is shown the received signal strength indication (RSSI) and the trajectory of each robot.}
- \label{fig:multirobot-atk}
-\end{figure*}
-\input{files/methodology.tex}
+\section{Experiments}
+\input{files/experiments}
 
-\input{files/expresults.tex}
-\input{files/conclusion.tex}
+\section{Main Experimental Insights}
+\input{files/insights}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% bibliography: see CFP for number of permitted pages
-
-\bibliographystyle{ACM-Reference-Format}  % do not change this line!
+\bibliographystyle{spmpsci}
 \def\localbib{\string~/wrk/group-bib/shared}
 \IfFileExists{\localbib.bib}{
 \bibliography{\localbib,sources}}{
 \bibliography{sources}}
-
-
-%\input{files/appendix.tex}
 
 \end{document}
