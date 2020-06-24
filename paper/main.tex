@@ -41,6 +41,8 @@
 
 %\DeclareCaptionFont{caption}{\fontsize{8}{9.6}\selectfont}
 %\captionsetup{font=caption}
+\input{files/sym}
+\DeclareMathOperator{\SLAM}{SLAM}
 
 \usepackage{hyperref}
 \hypersetup{
@@ -64,9 +66,9 @@
 \renewcommand\footnoterule{\vfill\svfootnoterule}
 
 \title{
-  Source seeking using semantic map prediction
+  Active map exploration using semantic room prediction in indoor environments
 }
-\titlerunning{Semantic source seeking}
+\titlerunning{Semantic exploration}
 
 \author{Vikas Dhiman\inst{1} \and
 Carlos Nieto-Grandas\inst{2} \and
@@ -84,13 +86,14 @@ Henrik I. Christensen\inst{1}}% <-this % stops a space
 
 \maketitle
 
-\section{Motivation}\label{sec:intro}
+\section{Introduction}\label{sec:intro}
+\paragraph{Motivation}
 \input{files/motivation}
 
-\section{Problem Statement}\label{sec:problem}
+\paragraph{Problem Statement}\label{sec:problem}
 \input{files/problem}
 
-\section{Related Work}\label{sec:relatedwork}
+\paragraph{Related Work}\label{sec:relatedwork}
 \input{files/relatedwork}
 
 \section{Technical Approach}

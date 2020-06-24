@@ -1,68 +1,48 @@
-Consider $N$ signal sources $\tgt_i \in \TgtSp$ in the environment $\map \in
-\MapSp$.
-We assume that the number of signal sources is known but the map of the
-environment is unknown.
-We have a robot that captures three kinds of observations. One is
- the signal, which is unaffected by the map.
- The other observations are vision and lidar observations.
-We assume that we how the signal source looks like, so that we can
-detect it using the vision sensor. We further assume that once detected, it gets
-diffused automatically.
-The Lidar observations help us detect obstacles and map occupancy.
+% Consider the problem of active exploration, which seeks to find the optimal
+% sequence of actions $\bfu$ that lead maximum gain in map-belief $\bel(\bfm)$
+% information,
+% \begin{equation}
+% \begin{split}
+%   \max_{\bfu_k} \sum_{t=k}^T &|\bbH(\bel(\bfm)_t) - \bbH(\bel_{t+1}(\bfm) | \bfx_t, \bfu_t)|
+%   \\
+%   \bfx_{t+1} &= f(\bfx_t, \bfu_t)
+%   \\
+%   \bfz_t &= g(\bfx_t)
+%   \\
+%   \bel_{t}(\bfm), \bfx_{t} &= \SLAM(\bel_{t-1}(\bfm), \bfx_{t-1}, \bfz_t, \bfu_t),
+% \end{split}
+% \end{equation}
+% where $ \bel_t(\bfm) \triangleq \bbP(\bfm | \bfz_{1:t}, \bfu_{1:t})$ is the
+% estimated map-belief at time $t$ or the probability of map given observations
+% $\bfz_{1:t}$ up to time $t$.
+% 
+% This problem is understood to be intractable \TODO{citation needed}, hence only
+% solved greedily.
 
-We assume signal-generation model $\RSSIModel$ for source is known.
-We further assume that the signal sources can be in two states, active or inactive.
-Let $\act_{i,t} = 1$ denote that the $i$th source is active.
-Hence, the signal sensed by the robot is given by,
-%
+We intend to capture the prior over map $\bbP(\bfm)$ using semantic patterns. Let the
+map be composed of $n$ rooms $\bfr_i $, $\bfm = [\bfr_1; \dots; \bfr_n]$,
+with respective semantic labels as $\bfc = [c_1; \dots; c_n]$.
+Let the rooms be divided into a set of explored rooms $\bfm_e = \{ \bfr_e \mid
+\exists t : \bfx_t \in \bfr_e \}$ and unexplored
+rooms $\bfm_u = \{ \bfr_u \mid \forall t : \bfx_t \notin \bfr_u \}$, depending
+upon whether the robot (position $\bfx_t$ ) has visited the room so far $\bfx_t
+\in \bfr$.
+We factorize the prior over map such that the observations $\bfz_{1:t}$ only
+impact the estimation of explored rooms, while the unexplored rooms are only
+based on prior,
 \begin{align}
-\rssi_t = \sum_{i=1}^N\act_{i,t} \RSSIModel(\tgt_i, \pose_t, \map),
-\end{align}%
-% 
-where $\act_{i,t} \in \{0, 1\}$ denotes whether the target $i$ is
-active.
+  \bbP(\bfm | \bfz_{1:t}, \bfu_{1:t}) = \bbP(\bfm_u | \bfm_e) \bbP(\bfm_e | \bfz_{1:t}, \bfu_{1:t}).
+\end{align}
+Here we assume that unexplored rooms $\bfm_u$ are independent of observations so
+far, provided the explored rooms $ \bfm_u \perp \{ \bfz_{1:t}, \bfu_{1:t} \} | \bfm_e$.
+To focus on capturing the semantic patterns, we further factorize the
+conditional probability $\bbP(\bfm_u | \bfm_e)$ only through the corresponding
+semantic labels of explored rooms $\bfc_e$ and unexplored rooms $\bfc_u$.
+\begin{align}
+  \bbP(\bfm_u | \bfm_e) &= \bbE_{\bfc_u, \bfc_e} \big[
+  \bbP(\bfm_u | \bfc_u) \bbP(\bfc_u|\bfc_e) \bbP(\bfc_e | \bfm_e)
+  \big].
+\end{align}
 
-We also assume an object-detection algorithm on the image sensor,
-$\AlgObjDet_i: \ImgSp \to \{0, 1\}$.
-When the robot has detected the target object $\AlgObjDet_i(\img_t) =
-1$, then we assume that targets object $i$ gets diffused automatically
-and it is no longer active $\act_{i,t+1} = \max\{ \AlgObjDet_i(\img_k), \act_{i,t}\}$.
-With slide abuse of notation, we include the image observation model as a part
-of object detection function and write the update model of activeness of target
-object as $\act_{i,t+1} = \max\{ \AlgObjDet(\pose_k, \tgt_i, \map), \act_{i,t}\}$.
-Also assume a cost function for taking each action at each state is $\cost:
-\PoseSp \times \CtrlSp \times \MapSp \to \R_+$.
-Under these conditions, we want to design a policy or control function $\policy:
-\RSSISp^t \times \LidarSp^t \times \ImgSp^t  \to \CtrlSp$.
-takes an optimal action $\ctrl_t = \policy(\rssi_{1:t}, \lidar_{1:t}, \img_{1:t})$ at
-each time step leading us to the radio-active object, where $\htgt_{i,t}$ is the
-current estimate of the location of the target.
-
-%
-\begin{equation}
-\begin{aligned}
-\policy^* = \arg &\min_{\policy} 
-\lambda \En(\map; \lidar_{1:t})
-- (1-\lambda) \MI(\tgt_{1:N}; \rssi_{1:t}| \ctrl_{1:t}) 
-  \\
-  \text{s.t } \quad
-  \pose_{t+1} &= \dyn(\pose_t, \ctrl_t, \map) + \pnoise_t
-  \\
-  \rssi_{t} &= \sum_{i=1}^N \act_{i,t} \RSSIModel(\pose_t, \tgt_i, \map) + \rnoise_{i,t}
-  \\
-  \lidar_{t} &= \LidarModel(\pose_t, \map) + \lnoise_t
-  \\
-  \act_{i,t+1} &=  \max\{\AlgObjDet(\pose_t, \tgt_i, \map), \act_{i,t} \}
-  \\
-  \ctrl_t &= \policy(\rssi_{1:t}, \lidar_{1:t}, \act_{1:N,t}),
-  \\
-  t &< T
-\end{aligned}%
-\end{equation}
-% 
-where $T$ is the maximum time allowed for exploration, $\rnoise$, $\pnoise$,
-$\lnoise$ are Gaussian noise with zero mean and covariances $\rCov$, $\pCov$ and
-$\lCov$ respectively.
-And $\lambda$ is the
-constant that weighs the map exploration objective against the target
-exploration objective.
+This equation captures our basic assumption and in this work, we evaluate the
+effectiveness of this assumption in exploration related tasks.
